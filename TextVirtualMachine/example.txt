@@ -1,0 +1,50 @@
+fun intarraysum
+param
+	long array
+	int n
+	long returnptr
+local
+	int i
+	flag f
+	long currptr
+	int sum
+	int curr
+do
+	mov i 0
+	mov sum 0
+	label check
+	greatereq i n f
+	gotoif f end
+	mul i 4 curr
+	add array curr currptr
+	read currptr curr
+	add sum curr sum
+	add i 1 i
+	goto check
+	label end
+	write sum returnptr
+	ret
+end
+
+// типы
+byte, short, int, long
+// команды
+установка mov(2) from -> to [всегда]
+арифметика add, sub, mul, div, mod (по 3)
+сравнение less, greater, <>+eq, eq, neq (3)
+
+побитовые not (2), and, or, xor (3)
+логические lnot (2), land, lor, lxor (3)
+
+разыменовывание read, write (2)
+метка label (1)
+переходы gotoif (2) goto (1)
+выделение памяти new <n> <ptr> (2)
+удаление del <ptr> (д.б. ptr:seg:0) (1)
+указатель на лок перем addr (2)
+завершение ret (0)
+исключение throw (1)
+
+call <name> <count> <params>
+
+ф-ии различаются по (name, count)

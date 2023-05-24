@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TextVirtualMachine": {
+      "commandName": "Project",
+      "commandLineArgs": "test.txt"
+    }
+  }
+}

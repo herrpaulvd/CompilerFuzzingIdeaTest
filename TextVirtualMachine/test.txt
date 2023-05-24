@@ -1,0 +1,81 @@
+﻿fun main
+param
+local
+	long v_0_long_n
+	ptr v_1_ptr_array
+	long v_tmp_0_long
+	long v_2_long_i
+	long v_tmp_1_long
+	long v_tmp_2_long
+	ptr v_tmp_3_ptr
+	long v_tmp_4_long
+	long v_tmp_5_long
+	long v_tmp_6_long
+	ptr v_tmp_7_ptr
+	long v_tmp_8_long
+	long v_tmp_9_long
+	long v_tmp_10_long
+do	mov 10 v_0_long_n
+	mov v_0_long_n v_tmp_0_long
+	mul v_tmp_0_long 8 v_tmp_0_long
+	new v_tmp_0_long v_1_ptr_array
+	mov 0 v_2_long_i
+	label L0
+	mov v_2_long_i v_tmp_1_long
+	mov v_0_long_n v_tmp_2_long
+	less v_tmp_1_long v_tmp_2_long v_tmp_0_long
+	not v_tmp_0_long v_tmp_0_long
+	gotoif v_tmp_0_long L1
+	mov v_1_ptr_array v_tmp_3_ptr
+	mov v_2_long_i v_tmp_1_long
+	mul v_tmp_1_long 8 v_tmp_1_long
+	add v_tmp_3_ptr v_tmp_1_long v_tmp_3_ptr
+	mov v_2_long_i v_tmp_1_long
+	write v_tmp_1_long v_tmp_3_ptr
+	mov v_tmp_1_long v_tmp_2_long
+	mov v_2_long_i v_tmp_4_long
+	mov 1 v_tmp_5_long
+	add v_tmp_4_long v_tmp_5_long v_tmp_1_long
+	mov v_tmp_1_long v_2_long_i
+	mov v_tmp_1_long v_tmp_2_long
+	goto L0
+	label L1
+	mov v_0_long_n v_tmp_5_long
+	mov 1 v_tmp_4_long
+	sub v_tmp_5_long v_tmp_4_long v_tmp_1_long
+	mov v_tmp_1_long v_2_long_i
+	mov v_tmp_1_long v_tmp_2_long
+	label L2
+	mov v_2_long_i v_tmp_1_long
+	mov 0 v_tmp_4_long
+	greatereq v_tmp_1_long v_tmp_4_long v_tmp_2_long
+	not v_tmp_2_long v_tmp_2_long
+	gotoif v_tmp_2_long L3
+	mov v_1_ptr_array v_tmp_3_ptr
+	mov v_2_long_i v_tmp_1_long
+	mul v_tmp_1_long 8 v_tmp_1_long
+	add v_tmp_3_ptr v_tmp_1_long v_tmp_3_ptr
+	mov v_1_ptr_array v_tmp_7_ptr
+	mov v_2_long_i v_tmp_8_long
+	mul v_tmp_8_long 8 v_tmp_8_long
+	add v_tmp_7_ptr v_tmp_8_long v_tmp_7_ptr
+	read v_tmp_7_ptr v_tmp_5_long
+	mov v_1_ptr_array v_tmp_7_ptr
+	mov v_2_long_i v_tmp_9_long
+	mov 1 v_tmp_10_long
+	sub v_tmp_9_long v_tmp_10_long v_tmp_8_long
+	mul v_tmp_8_long 8 v_tmp_8_long
+	add v_tmp_7_ptr v_tmp_8_long v_tmp_7_ptr
+	read v_tmp_7_ptr v_tmp_6_long
+	sub v_tmp_5_long v_tmp_6_long v_tmp_1_long
+	write v_tmp_1_long v_tmp_3_ptr
+	mov v_tmp_1_long v_tmp_4_long
+	mov v_2_long_i v_tmp_6_long
+	mov 1 v_tmp_5_long
+	sub v_tmp_6_long v_tmp_5_long v_tmp_1_long
+	mov v_tmp_1_long v_2_long_i
+	mov v_tmp_1_long v_tmp_4_long
+	goto L2
+	label L3
+	ret
+end

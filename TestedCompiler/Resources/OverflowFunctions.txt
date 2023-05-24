@@ -1,0 +1,235 @@
+fun CheckAddOverflow
+param
+	long left
+	long right
+	long min
+	long max
+local
+	long temp
+	long flag
+do
+	lesseq right 0 flag
+	gotoif flag end1
+
+	sub max right temp
+	lesseq left temp flag
+	gotoif flag end1
+	
+	throw overflow
+	label end1
+
+	greatereq right 0 flag
+	gotoif flag end2
+
+	sub min right temp
+	greatereq left temp flag
+	gotoif flag end2
+
+	throw overflow
+	label end2
+
+	mov 48 left
+	ret
+end
+
+fun CheckSubOverflow
+param
+	long left
+	long right
+	long min
+	long max
+local
+	long temp
+	long flag
+do
+	greatereq right 0 flag
+	gotoif flag end1
+
+	add max right temp
+	lesseq left temp flag
+	gotoif flag end1
+	
+	throw overflow
+	label end1
+
+	lesseq right 0 flag
+	gotoif flag end2
+
+	add min right temp
+	greatereq left temp flag
+	gotoif flag end2
+
+	throw overflow
+	label end2
+
+	mov 48 left
+	ret
+end
+
+
+fun CheckMulOverflow
+param
+	long left
+	long right
+	long min
+	long max
+local
+	long temp
+	long flag
+do
+	neq left -1 flag
+	gotoif flag end1
+
+	neq right min flag
+	gotoif flag end1
+	
+	throw overflow
+	label end1
+
+	neq right -1 flag
+	gotoif flag end2
+
+	neq left min flag
+	gotoif flag end2
+	
+	throw overflow
+	label end2
+
+	eq right 0 flag
+	gotoif flag end4
+
+	div max right temp
+	lesseq left temp flag
+	gotoif flag end3
+	
+	throw overflow
+	label end3
+
+	div min right temp
+	greatereq left temp flag
+	gotoif flag end4
+
+	throw overflow
+	label end4
+
+	mov 48 left
+	ret
+end
+
+fun CheckDivOverflow
+param
+	long left
+	long right
+	long min
+	long max
+local
+	long flag
+do
+	neq right 0 flag
+	gotoif flag ovfcheck
+	throw divbyzero
+
+	label ovfcheck
+
+	neq left min flag
+	gotoif flag end
+
+	neq right -1 flag
+	gotoif flag end
+
+	throw overflow
+	label end
+	mov 40 left
+	ret
+end
+
+fun SafeNew
+param
+	long count
+	ptr ptraddr
+local
+	long realcount
+	long flag
+	ptr newres
+do
+	greatereq count 0 flag
+	gotoif flag checkthen
+	throw new_size_negative
+
+	label checkthen
+	less count 1000000 flag
+	gotoif flag doalloc
+	throw new_size_too_long
+
+	label doalloc
+	add count 8 realcount
+	new realcount newres
+	write realcount newres
+	add newres 8 newres
+	write newres ptraddr
+	mov 40 count
+	ret
+end
+
+fun SafeDelete
+param
+	ptr todel
+local
+	ptr intaddr
+	int minor
+	long flag
+do
+	call SafeAddr 1 todel
+
+	mov 0 minor
+	addr todel intaddr
+	write minor intaddr
+
+	add intaddr 4 intaddr
+	read intaddr minor
+	greater minor 1 flag
+	gotoif flag dellabel
+	throw mem_access_denied
+
+	label dellabel
+	del todel
+	mov 28 todel
+	ret
+end
+
+fun SafeAddr
+param
+	ptr address
+local
+	ptr origin
+	ptr intaddr
+	int minor
+	int offset
+	long flag
+	long size
+do
+	mov address origin
+	addr origin intaddr
+
+	add intaddr 4 intaddr
+	read intaddr offset
+	badseg offset flag
+	gotoif flag excep
+
+	sub intaddr 4 intaddr
+	mov address offset
+	less offset 8 flag
+	gotoif flag excep
+
+	mov 0 minor
+	write minor intaddr
+	read origin size
+	greatereq offset size flag
+	gotoif flag excep
+
+	mov 48 address
+	ret
+
+	label excep
+	throw mem_access_denied
+end

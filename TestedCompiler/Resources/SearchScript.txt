@@ -1,0 +1,8 @@
+@get-current(@name) =
+	name(@name) & type(var);
+
+@get-local(@name) =
+	@get-current(@name)
+	?| relation(parent) . @get-local(@name)
+	;
+
